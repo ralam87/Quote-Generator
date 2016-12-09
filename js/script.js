@@ -1,5 +1,6 @@
 // event listener to respond to "Show another quote" button clicks
 // when user clicks anywhere on the button, the "printQuote" function is called
+
 document.getElementById('loadQuote').addEventListener("click", printQuote);
 
 window.setInterval(printQuote, 30000);
@@ -10,7 +11,9 @@ window.setInterval(printQuote, 30000);
 //this it the main function that brances out to run other functions
 function printQuote () {
     randomColour();
-    getRandomQuote();
+    var quote = getRandomQuote()
+
+    
        
     //checks to see if quote exists in displayed array, and either grabs a new quote, displays the quote. once it hits the array length of the quote bank (25 currently) then it'll reset the displayed array and allow for previous quotes to be put up again
      if (displayed.indexOf(quote) !== -1) {
@@ -21,10 +24,13 @@ function printQuote () {
          }
      } else if (displayed.indexOf(quote) === -1) { 
          displayed.push(quote);
-           document.getElementById("quote").innerHTML = quote;
-           document.getElementById("source").innerHTML = author;
-         document.getElementById("source").getElementsByClassName("citation")[0] = extraInfo;
-                     
+           document.getElementById("quote").innerHTML = quote.quote;
+           document.getElementById("source").innerHTML = quote.source;
+         if (quote.citation !== undefined) {
+         document.getElementById("source").getElementsByClassName("citation")[0] = quote.citation;
+         }
+         //console.log(displayed.length); to check whether loops after all (25) quotes have been displayed, removed if required
+                              
         }
      };
 
@@ -42,11 +48,7 @@ function randomColour () {
     document.body.style.backgroundColor = 'rgb(' + RGB + ')';
 };
 
-
-var quote;
-var author;
-var extraInfo;
-var i;
+//var i;
 var displayed = [];   
 
 //this function selects the quote from the var quotes array
@@ -54,18 +56,8 @@ var displayed = [];
     //loops through quotes array and assigns to designated variables, also allows any undefined values to be displayed as nothing rather than undefined
      function getRandomQuote() { 
     var i = Math.floor(Math.random() * quotes.length) ;
-   quote = quotes[i].quote;
-   author = quotes[i].source;
-   extraInfo = quotes[i].citation;
-        
-     if (extraInfo === undefined) {
-      extraInfo = " ";   
-        };
-            return quote, author, extraInfo;
-            
+            return quotes[i];
     };
-
-
 
 
 
