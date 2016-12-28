@@ -3,7 +3,10 @@
 
 document.getElementById('loadQuote').addEventListener("click", printQuote);
 
-window.setInterval(printQuote, 30000);
+//window.setInterval(printQuote, 30000);
+
+
+
 
 
 
@@ -13,7 +16,6 @@ function printQuote () {
     randomColour();
     var quote = getRandomQuote()
 
-    
        
     //checks to see if quote exists in displayed array, and either grabs a new quote, displays the quote. once it hits the array length of the quote bank (25 currently) then it'll reset the displayed array and allow for previous quotes to be put up again
      if (displayed.indexOf(quote) !== -1) {
@@ -27,11 +29,18 @@ function printQuote () {
            document.getElementById("quote").innerHTML = quote.quote;
            document.getElementById("source").innerHTML = quote.source;
          if (quote.citation !== undefined) {
-         document.getElementById("source").getElementsByClassName("citation")[0] = quote.citation;
+             var span1 = document.createElement("span");
+             document.getElementById("source").appendChild(span1);
+             span1.setAttribute("class", "citation");
+             span1.style.display = "block";
+           span1.innerHTML = quote.citation; 
+             
+             
          }
-         //console.log(displayed.length); to check whether loops after all (25) quotes have been displayed, removed if required
-                              
+    
+                 //console.log(displayed.length); to check whether loops after all (25) quotes have been displayed, removed if required
         }
+          
      };
 
 

@@ -57,6 +57,7 @@ body {
 .citation {
   font-style: italic;
     
+    
 }
 .citation :before {
   content: ", ";
